@@ -1,11 +1,15 @@
 <html>
 <head>
-	<title>StreetFighter</title>
+	<title>Street Fighter</title>
 	<style>
+	body{
+		background-color: grey;
+	}
 	#background{
 		background:url('sf2hf-blanka.gif');
 		min-height:224px;
 		width:621px;
+		border: 10px black solid;
 	}
 	#character1{
 		background:url('steetFighter_sprite.png');
@@ -27,22 +31,34 @@
 		transform: scaleX(-1);
 	}
 	#score1{
-		position:absolute;
-		top:20px;
-		left:50px;
-		width:150px;
-		height:12px;
-		background-color:yellow;
-		border:1px solid black;
+		position: absolute;
+	    top: 26px;
+	    left: 46px;
+	    width: 239px;
+	    height: 27px;
+	    border-radius: 5px;
+	    background-color: yellow;
+	    border: 1px solid black;
+	    padding:4px;
+
 	}
 	#score2{
-		position:absolute;
-		top:20px;
-		left:420px;
-		width:150px;
-		height:12px;
-		background-color:green;
-		border:1px solid black;
+		position: absolute;
+	    top: 25px;
+	    left: 365px;
+	    width: 239;
+	    height: 27;
+	    border-radius: 5px;
+	    background-color: yellow;
+	    border: 1px solid black;
+	    padding:4px;
+	}
+	.Instructions{
+		width:300px;
+		height:250px;
+		background-color: pink;
+		display: inline-block;
+		vertical-align: top;
 	}
 
 	</style>
@@ -50,14 +66,14 @@
 <body>
 
 	<div id='background'>
-		<div id='score1'>Player1 :0</div>
-		<div id='score2'>Player2 :0</div>
+		<div id='score1'>Player1</div>
+		<div id='score2'>Player2</div>
 	</div>
 	<div id='character1'></div>
 	<div id='character2'></div>
 
 
-	<h1>Homework</h1>
+	<h1>Street Fighter</h1>
 
 	<ul>
 		<!-- <li>Get punch and kick to work</li> -->
@@ -68,21 +84,35 @@
 		<!-- <li>(Extra point)Get Arugyen to work!!!</li> -->
 	</ul>
 
-<!-- 
-	<ul> Player1 Keys- KeyBoard Left-Side
-		<li>Left Z Key</li>
-		<li>Right X Key</li>
-		<li>Up Spacebar</li>
-		<li>Down C Key</li>
-		<li>RoundKick W Key</li>
-	</ul>
+<div class="Instructions">
+  <ul> <strong>Player1 </strong><br>
+	<li>KeyBoard Left-Side </li>
+    <li><strong>Keys-WASD ZXC SPACEBAR</strong></li>
+    <li>W Key-RoundKick </li>
+    <li>A key-Punch</li>
+    <li>S Key-Aragyen</li>
+    <li>D Key-Kick</li>
+    <li>Z Key-Left Movement</li>
+	<li>X Key-RightMovement</li>
+	<li>C Key-Down </li>
+    <li>Spacebar-Jump</li>
+  </ul>
+</div>
 
-	<ul>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-	</ul> -->
+<div class="Instructions">
+  <ul><strong>Player2</strong><br>
+	<li>KeyBoard Right-Side</li>  
+    <li><strong>Keys UHJK &amp; KeyPad Arrows</strong></li>
+  	<li>U Key-RoundKick</li>
+	<li>H key-Punch</li>
+	<li>J Key-Aragyen</li>
+	<li>K Key-Kick </li>
+	<li>Left-Left Arrow</li>
+	<li>Right Arrow-Right</li>
+	<li>Up Arrow-Up</li>
+	<li>Down Arrow-Down</li>
+  </ul>
+	</div>
 	<script>
 //Indexes of Sprite Sheet(x-ROWS , y - COLUMNS) 
 	var mapping = {
