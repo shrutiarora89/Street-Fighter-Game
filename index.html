@@ -30,6 +30,15 @@
 		background-position: 0px -80px;
 		transform: scaleX(-1);
 	}
+	#fire{
+		background:url('steetFighter_sprite.png');
+		position:absolute;
+		top:140px;
+		left:510px;
+		width:80px;
+		height:70px;
+	}
+
 	#score1{
 		position: absolute;
 	    top: 26px;
@@ -59,6 +68,8 @@
 		background-color: pink;
 		display: inline-block;
 		vertical-align: top;
+	    border-radius: 8px;
+
 	}
 
 	</style>
@@ -71,6 +82,7 @@
 	</div>
 	<div id='character1'></div>
 	<div id='character2'></div>
+	<div id='fire'></div>
 
 
 	<h1>Street Fighter</h1>
@@ -122,7 +134,12 @@
 		kick:{y:6, x:[0,1,2,3,4]},
 		roundkick: {y: 7, x: [0,1,2,3,4]},
 		jumpingUp:{y: 8, x: [0,1,2,3,4,5,6]},
-		sit:{y:9, x:[0]}
+		sit:{y:9, x:[0]},
+	}
+
+	var mappingfire={
+		fire1:{y:4,x:[0,1]},
+		fire2:{y:5,x:[0,1,2,3]}
 	}
 // OBJECT player1 ; x(left)-70, y(top)-140
 	var player1 = {
@@ -132,6 +149,10 @@
 // OBJECT player2 ;  x(left)-500, y(top)-140
 	var player2 = {
 		x: 500, y:140, step:0, action: "walk", health:100
+	}
+
+	var fire={
+		x:32,y:23, step:0, action: "fire1","isActive":false
 	}
 //POSITION 
 	function drawPlayers(){
@@ -148,7 +169,7 @@
 			player1.step = 0; 
 			player1.action = 'walk'; 
 		}
-     //Player 2 Standing and hMoving Continuously- Only with this function
+     //Player 2 Standing and Moving Continuously- Only with this function
 		document.getElementById('character2').style.backgroundPosition = "-"+(player2.step*70)+"px -"+(mapping[player2.action].y*80)+"px";
 		player2.step++;  
 		if(player2.step >= mapping[player2.action].x.length) { 
@@ -156,7 +177,28 @@
 			player2.action = 'walk'; 
 		}
 	}
+function drawFire(){
 
+		if (fire.isActive) {
+		fire.x+=10;
+ 		document.getElementById('fire').style.top = fire.y;
+ 		document.getElementById('fire').style.left = fire.x;
+
+ 		//FOR CSS- Converting Array Indexes into exact dimensions of the Character Object
+		// Change Position of Background Image - 70 width and 80 height of the Object
+		document.getElementById('fire').style.backgroundPosition = "-"+(fire.step*70)+"px -"+(mappingfire[fire.action].y*80)+"px";
+		fire.step++;  
+		if(fire.step >= mappingfire[fire.action].x.length) { 
+			fire.step = 0; 
+			//fire.action = 'fire2'; 
+		}
+
+		if (fire.x > 200) {
+			fire.isActive = false;
+		}
+	}
+
+}
 
 	
 	function detectCollision(){
@@ -179,11 +221,13 @@
 
 	//Game Over
 	function detectNoHealth(){
-		if (player1.health == 0 || player2.health ==0){
-			alert('Game Over');
+		if (player1.health == 0){
+			alert('Player2 won.Game Over');
 		}
-	}
-
+		else if(player2.health ==0){
+			alert('Player1 won.Game Over');
+	    }
+}
 
 
 	function updateHealth(){
@@ -192,6 +236,7 @@
 	}
 
 	function gameLoop(){
+		drawFire();
 		drawPlayers();
 		detectCollision();
 	}
@@ -208,7 +253,10 @@
 		player1.action = 'roundkick' //W
 		} 
 		else if(e.keyCode == 83){
-		player1.action = 'arugyen'   //S 
+		player1.action = 'arugyen'   //S
+			fire.isActive = true;
+			fire.x = player1.x;
+			fire.y = player1.y; 
 		}
 		else if(e.keyCode == 32){
 		player1.action = 'jumpingUp' //SPACEBAR
@@ -221,6 +269,10 @@
 		}
 		else if(e.keyCode == 68){   //D
 		player1.action = 'kick'  
+		}
+		else if(e.keyCode == 69){   //E
+		//player1.action = 'fire'  
+		
 		}
 		// -------------------------
 			if(e.keyCode == 37){      //LEFT
@@ -244,8 +296,8 @@
 		else if(e.keyCode == 72){   //H
 		player2.action = 'punch'
 		}
-		else if(e.keyCode == 75){   //K
-		player2.action = 'kick'  
+		else if(e.keyCode == 73){   //I
+		player2.action = 'fire'  
 		}
 	console.log('you pressed', e.keyCode);
 	}
