@@ -30,14 +30,7 @@
 		background-position: 0px -80px;
 		transform: scaleX(-1);
 	}
-	#fire{
-		background:url('steetFighter_sprite.png');
-		position:absolute;
-		top:140px;
-		left:510px;
-		width:80px;
-		height:70px;
-	}
+
 
 	#score1{
 		position: absolute;
@@ -69,7 +62,6 @@
 		display: inline-block;
 		vertical-align: top;
 	    border-radius: 8px;
-
 	}
 
 	</style>
@@ -80,51 +72,44 @@
 		<div id='score1'>Player1</div>
 		<div id='score2'>Player2</div>
 	</div>
+
 	<div id='character1'></div>
 	<div id='character2'></div>
-	<div id='fire'></div>
-
-
 	<h1>Street Fighter</h1>
 
-	<ul>
-		<!-- <li>Get punch and kick to work</li> -->
-		<!-- <li>Get the 2nd player to move</li> -->
-		<!-- <li>Get the players to jump up/down</li> -->
-		<!-- <li>Finish the score system</li> -->
-		<!-- <li>Display game over</li> -->
-		<!-- <li>(Extra point)Get Arugyen to work!!!</li> -->
-	</ul>
 
-<div class="Instructions">
-  <ul> <strong>Player1 </strong><br>
-	<li>KeyBoard Left-Side </li>
-    <li><strong>Keys-WASD ZXC SPACEBAR</strong></li>
-    <li>W Key-RoundKick </li>
-    <li>A key-Punch</li>
-    <li>S Key-Aragyen</li>
-    <li>D Key-Kick</li>
-    <li>Z Key-Left Movement</li>
-	<li>X Key-RightMovement</li>
-	<li>C Key-Down </li>
-    <li>Spacebar-Jump</li>
-  </ul>
-</div>
-
-<div class="Instructions">
-  <ul><strong>Player2</strong><br>
-	<li>KeyBoard Right-Side</li>  
-    <li><strong>Keys UHJK &amp; KeyPad Arrows</strong></li>
-  	<li>U Key-RoundKick</li>
-	<li>H key-Punch</li>
-	<li>J Key-Aragyen</li>
-	<li>K Key-Kick </li>
-	<li>Left-Left Arrow</li>
-	<li>Right Arrow-Right</li>
-	<li>Up Arrow-Up</li>
-	<li>Down Arrow-Down</li>
-  </ul>
+	<div class="Instructions">
+	  <ul> <strong>Player1 </strong><br>
+		<li>KeyBoard Left-Side </li>
+	    <li><strong>Keys-WASD ZXC SPACEBAR</strong></li>
+	    <li>W Key-RoundKick </li>
+	    <li>A key-Punch</li>
+	    <li>S Key-Aragyen</li>
+	    <li>D Key-Kick</li>
+	    <li>Z Key-Left Movement</li>
+		<li>X Key-RightMovement</li>
+		<li>C Key-Down </li>
+	    <li>Spacebar-Jump</li>
+	  </ul>
 	</div>
+
+	<div class="Instructions">
+	  <ul><strong>Player2</strong><br>
+		<li>KeyBoard Right-Side</li>  
+	    <li><strong>Keys UHJK &amp; KeyPad Arrows</strong></li>
+	  	<li>U Key-RoundKick</li>
+		<li>H key-Punch</li>
+		<li>J Key-Aragyen</li>
+		<li>K Key-Kick </li>
+		<li>Left-Left Arrow</li>
+		<li>Right Arrow-Right</li>
+		<li>Up Arrow-Up</li>
+		<li>Down Arrow-Down</li>
+	  </ul>
+   </div>
+
+	</body>
+
 	<script>
 //Indexes of Sprite Sheet(x-ROWS , y - COLUMNS) 
 	var mapping = {
@@ -137,10 +122,7 @@
 		sit:{y:9, x:[0]},
 	}
 
-	var mappingfire={
-		fire1:{y:4,x:[0,1]},
-		fire2:{y:5,x:[0,1,2,3]}
-	}
+
 // OBJECT player1 ; x(left)-70, y(top)-140
 	var player1 = {
 		x: 70, y:140, step:0, action: "walk", health:100
@@ -149,10 +131,6 @@
 // OBJECT player2 ;  x(left)-500, y(top)-140
 	var player2 = {
 		x: 500, y:140, step:0, action: "walk", health:100
-	}
-
-	var fire={
-		x:32,y:23, step:0, action: "fire1","isActive":false
 	}
 //POSITION 
 	function drawPlayers(){
@@ -177,28 +155,7 @@
 			player2.action = 'walk'; 
 		}
 	}
-function drawFire(){
 
-		if (fire.isActive) {
-		fire.x+=10;
- 		document.getElementById('fire').style.top = fire.y;
- 		document.getElementById('fire').style.left = fire.x;
-
- 		//FOR CSS- Converting Array Indexes into exact dimensions of the Character Object
-		// Change Position of Background Image - 70 width and 80 height of the Object
-		document.getElementById('fire').style.backgroundPosition = "-"+(fire.step*70)+"px -"+(mappingfire[fire.action].y*80)+"px";
-		fire.step++;  
-		if(fire.step >= mappingfire[fire.action].x.length) { 
-			fire.step = 0; 
-			//fire.action = 'fire2'; 
-		}
-
-		if (fire.x > 200) {
-			fire.isActive = false;
-		}
-	}
-
-}
 
 	
 	function detectCollision(){
@@ -236,7 +193,6 @@ function drawFire(){
 	}
 
 	function gameLoop(){
-		drawFire();
 		drawPlayers();
 		detectCollision();
 	}
@@ -296,8 +252,8 @@ function drawFire(){
 		else if(e.keyCode == 72){   //H
 		player2.action = 'punch'
 		}
-		else if(e.keyCode == 73){   //I
-		player2.action = 'fire'  
+		else if(e.keyCode == 75){   //K
+		player2.action = 'kick'  
 		}
 	console.log('you pressed', e.keyCode);
 	}
